@@ -1,0 +1,127 @@
+/* 
+ * EduFinance Style Sheet
+ * Theme: Modern Flat Light Mode
+ * Direction: RTL Supporting Layouts
+ */
+
+/* Main Container Styles */
+.root {
+    -fx-font-family: "Segoe UI", "Arial", sans-serif;
+    -fx-font-size: 14px;
+    -fx-text-fill: #333333;
+    -fx-background-color: #F4F6F8;
+}
+
+/* Sidebar Styling */
+.sidebar {
+    -fx-background-color: #FFFFFF;
+    -fx-border-color: #E2E8F0;
+    -fx-border-width: 0 1 0 0; /* Right border in RTL */
+    -fx-padding: 20 10 20 10;
+}
+
+.sidebar-button {
+    -fx-background-color: transparent;
+    -fx-text-fill: #4A5568;
+    -fx-alignment: CENTER_RIGHT;
+    -fx-padding: 10 15 10 15;
+    -fx-background-radius: 5;
+    -fx-cursor: hand;
+}
+
+.sidebar-button:hover {
+    -fx-background-color: #EDF2F7;
+    -fx-text-fill: #2B6CB0;
+}
+
+.sidebar-button:selected {
+    -fx-background-color: #EBF8FF;
+    -fx-text-fill: #2B6CB0;
+    -fx-font-weight: bold;
+}
+
+/* Form Controls */
+.button-primary {
+    -fx-background-color: #3182CE;
+    -fx-text-fill: #FFFFFF;
+    -fx-background-radius: 5;
+    -fx-padding: 8 16 8 16;
+    -fx-font-weight: bold;
+    -fx-cursor: hand;
+}
+
+.button-primary:hover {
+    -fx-background-color: #2B6CB0;
+}
+
+.button-danger {
+    -fx-background-color: #E53E3E;
+    -fx-text-fill: #FFFFFF;
+    -fx-background-radius: 5;
+    -fx-padding: 8 16 8 16;
+    -fx-font-weight: bold;
+    -fx-cursor: hand;
+}
+
+.button-danger:hover {
+    -fx-background-color: #C53030;
+}
+
+.text-field {
+    -fx-background-color: #FFFFFF;
+    -fx-border-color: #CBD5E0;
+    -fx-border-width: 1;
+    -fx-border-radius: 5;
+    -fx-background-radius: 5;
+    -fx-padding: 8;
+    -fx-text-fill: #2D3748;
+}
+
+.text-field:focused {
+    -fx-border-color: #3182CE;
+    -fx-background-color: #FFFFFF;
+}
+
+/* Card Pane */
+.card {
+    -fx-background-color: #FFFFFF;
+    -fx-background-radius: 8;
+    -fx-border-radius: 8;
+    -fx-border-color: #E2E8F0;
+    -fx-border-width: 1;
+    -fx-padding: 20;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.05), 10, 0, 0, 4);
+}
+
+/* Tables */
+.table-view {
+    -fx-background-color: transparent;
+    -fx-border-color: #E2E8F0;
+    -fx-border-radius: 5;
+    -fx-background-radius: 5;
+}
+
+.table-view .column-header-background {
+    -fx-background-color: #EDF2F7;
+}
+
+.table-view .column-header {
+    -fx-background-color: transparent;
+    -fx-text-fill: #4A5568;
+    -fx-font-weight: bold;
+    -fx-padding: 10;
+}
+
+.table-view .table-row-cell {
+    -fx-background-color: #FFFFFF;
+    -fx-border-color: transparent transparent #EDF2F7 transparent;
+}
+
+.table-view .table-row-cell:filled:hover {
+    -fx-background-color: #F7FAFC;
+}
+
+.table-view .table-row-cell:selected {
+    -fx-background-color: #EBF8FF;
+    -fx-text-fill: #2B6CB0;
+}
