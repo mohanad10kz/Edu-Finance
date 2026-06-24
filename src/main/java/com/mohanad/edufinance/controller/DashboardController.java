@@ -40,6 +40,9 @@ public class DashboardController {
     private ToggleButton studentPaymentsBtn;
 
     @FXML
+    private ToggleButton studentPaymentsHistoryBtn;
+
+    @FXML
     private ToggleGroup navGroup;
 
     @FXML
@@ -107,6 +110,14 @@ public class DashboardController {
     @FXML
     void showStudentPaymentsView(ActionEvent event) {
         loadView("/fxml/StudentPaymentsView.fxml");
+    }
+
+    /**
+     * Shows the Student Payments History View in the central workspace.
+     */
+    @FXML
+    void showStudentPaymentsHistoryView(ActionEvent event) {
+        loadView("/fxml/StudentPaymentsHistoryView.fxml");
     }
 
     /**

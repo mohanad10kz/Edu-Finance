@@ -72,6 +72,12 @@
                     </font>
                 </ToggleButton>
                 
+                <ToggleButton fx:id="studentPaymentsHistoryBtn" alignment="BASELINE_LEFT" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#showStudentPaymentsHistoryView" prefHeight="45.0" styleClass="sidebar-button" text="سجل أقساط الطلبة" toggleGroup="$navGroup">
+                    <font>
+                        <Font size="13.0" />
+                    </font>
+                </ToggleButton>
+                
                 <ToggleButton fx:id="teachersBtn" alignment="BASELINE_LEFT" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#showTeachersView" prefHeight="45.0" styleClass="sidebar-button" text="إدارة المعلمين" toggleGroup="$navGroup">
                     <font>
                         <Font size="13.0" />

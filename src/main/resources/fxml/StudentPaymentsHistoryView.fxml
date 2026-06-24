@@ -5,11 +5,12 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox spacing="15.0" style="-fx-background-color: #F4F6F8; -fx-background-radius: 8;" stylesheets="@../css/style.css" nodeOrientation="RIGHT_TO_LEFT" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mohanad.edufinance.controller.SalaryHistoryController">
+<VBox spacing="15.0" style="-fx-background-color: #F4F6F8; -fx-background-radius: 8;" stylesheets="@../css/style.css" nodeOrientation="RIGHT_TO_LEFT" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mohanad.edufinance.controller.StudentPaymentsHistoryController">
     <padding>
         <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
     </padding>
@@ -19,12 +20,12 @@
             <children>
                 <VBox spacing="5.0" HBox.hgrow="ALWAYS">
                     <children>
-                        <Label text="سجل الرواتب المصروفة للمعلمين" textFill="#2D3748">
+                        <Label text="سجل أقساط الطلبة المحصلة" textFill="#2D3748">
                             <font>
                                 <Font name="System Bold" size="20.0" />
                             </font>
                         </Label>
-                        <Label text="عرض وطباعة كافة المرتبات والمستحقات التي تم صرفها مسبقاً" textFill="#718096">
+                        <Label text="عرض وإعادة طباعة إيصالات كافة الأقساط الدراسية المحصلة من الطلاب" textFill="#718096">
                             <font>
                                 <Font size="13.0" />
                             </font>
@@ -36,19 +37,20 @@
                         <Font name="System Bold" size="13.0" />
                     </font>
                 </Button>
+            </children>
         </HBox>
-        
+
         <!-- Filters Bar -->
         <HBox spacing="15.0" alignment="CENTER_LEFT" style="-fx-background-color: #F7FAFC; -fx-padding: 10; -fx-background-radius: 5;">
             <children>
                 <VBox spacing="3.0" HBox.hgrow="ALWAYS">
                     <children>
-                        <Label text="بحث باسم المعلم" textFill="#4A5568">
+                        <Label text="بحث باسم الطالب" textFill="#4A5568">
                             <font>
                                 <Font name="System Bold" size="11.0" />
                             </font>
                         </Label>
-                        <TextField fx:id="searchField" promptText="اكتب اسم المعلم للبحث..." styleClass="text-field" />
+                        <TextField fx:id="searchField" promptText="اكتب اسم الطالب للبحث..." styleClass="text-field" />
                     </children>
                 </VBox>
             </children>
@@ -58,11 +60,10 @@
         <TableView fx:id="historyTable" VBox.vgrow="ALWAYS">
             <columns>
                 <TableColumn fx:id="idCol" prefWidth="60.0" text="المعرف" />
-                <TableColumn fx:id="teacherNameCol" prefWidth="200.0" text="اسم المعلم" />
-                <TableColumn fx:id="payTypeCol" prefWidth="120.0" text="نوع التعاقد" />
-                <TableColumn fx:id="amountCol" prefWidth="130.0" text="القيمة المصروفة" />
-                <TableColumn fx:id="detailsCol" prefWidth="180.0" text="تفاصيل الصرف" />
-                <TableColumn fx:id="dateCol" prefWidth="130.0" text="تاريخ العمليّة" />
+                <TableColumn fx:id="studentNameCol" prefWidth="220.0" text="اسم الطالب" />
+                <TableColumn fx:id="gradeCol" prefWidth="180.0" text="الصف الدراسي" />
+                <TableColumn fx:id="amountCol" prefWidth="150.0" text="القيمة المدفوعة" />
+                <TableColumn fx:id="dateCol" prefWidth="150.0" text="تاريخ العمليّة" />
             </columns>
         </TableView>
     </children>
