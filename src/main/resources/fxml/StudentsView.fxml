@@ -1,15 +1,155 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<StackPane prefHeight="500.0" prefWidth="700.0" style="-fx-background-color: #FFFFFF; -fx-background-radius: 8;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
-   <children>
-      <Label text="شاشة الطلاب والمدفوعات - قيد التطوير" textFill="#718096">
-         <font>
-            <Font name="System Bold" size="20.0" />
-         </font>
-      </Label>
-   </children>
-</StackPane>
+<HBox spacing="20.0" style="-fx-background-color: #F4F6F8;" stylesheets="@../css/style.css" nodeOrientation="RIGHT_TO_LEFT" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mohanad.edufinance.controller.StudentsController">
+    <padding>
+        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+    </padding>
+    <children>
+        
+        <!-- Right side: Student List TableView (جدول الطلاب) -->
+        <VBox spacing="15.0" styleClass="card" HBox.hgrow="ALWAYS">
+            <children>
+                <Label text="قائمة الطلاب المقيدين والمدفوعات" textFill="#2D3748">
+                    <font>
+                        <Font name="System Bold" size="18.0" />
+                    </font>
+                </Label>
+                
+                <TableView fx:id="studentsTable" VBox.vgrow="ALWAYS">
+                    <columns>
+                        <TableColumn fx:id="studentIdCol" prefWidth="50.0" text="المعرف" />
+                        <TableColumn fx:id="studentNameCol" prefWidth="150.0" text="اسم الطالب" />
+                        <TableColumn fx:id="studentGradeCol" prefWidth="100.0" text="الصف" />
+                        <TableColumn fx:id="studentTotalFeesCol" prefWidth="100.0" text="إجمالي الرسوم" />
+                        <TableColumn fx:id="studentPaidCol" prefWidth="90.0" text="المدفوع" />
+                        <TableColumn fx:id="studentRemainingCol" prefWidth="90.0" text="المتبقي" />
+                    </columns>
+                </TableView>
+            </children>
+        </VBox>
+        
+        <!-- Left side: Student Form & Payment Section (العمليات والمدفوعات) -->
+        <VBox spacing="20.0" prefWidth="350.0">
+            <children>
+                
+                <!-- Card 1: Add & Edit Student (إضافة وتعديل بيانات طالب) -->
+                <VBox spacing="15.0" styleClass="card">
+                    <children>
+                        <Label text="إدارة بيانات الطلاب" textFill="#2D3748">
+                            <font>
+                                <Font name="System Bold" size="16.0" />
+                            </font>
+                        </Label>
+                        
+                        <VBox spacing="10.0">
+                            <children>
+                                <VBox spacing="3.0">
+                                    <children>
+                                        <Label text="اسم الطالب رباعي" textFill="#4A5568">
+                                            <font>
+                                                <Font name="System Bold" size="12.0" />
+                                            </font>
+                                        </Label>
+                                        <TextField fx:id="studentNameField" promptText="أدخل اسم الطالب رباعي" styleClass="text-field" />
+                                    </children>
+                                </VBox>
+                                <VBox spacing="3.0">
+                                    <children>
+                                        <Label text="المرحلة الدراسية (الصف)" textFill="#4A5568">
+                                            <font>
+                                                <Font name="System Bold" size="12.0" />
+                                            </font>
+                                        </Label>
+                                        <ComboBox fx:id="studentGradeComboBox" promptText="اختر الصف الدراسي" styleClass="text-field" maxWidth="1.7976931348623157E308" />
+                                    </children>
+                                </VBox>
+                            </children>
+                        </VBox>
+                        
+                        <HBox spacing="10.0">
+                            <children>
+                                <Button mnemonicParsing="false" onAction="#handleAddStudent" prefHeight="35.0" styleClass="button-primary" text="إضافة طالب" HBox.hgrow="ALWAYS" maxWidth="1.7976931348623157E308" />
+                                <Button mnemonicParsing="false" onAction="#handleEditStudent" prefHeight="35.0" styleClass="button-primary" style="-fx-background-color: #4A5568;" text="حفظ التعديل" HBox.hgrow="ALWAYS" maxWidth="1.7976931348623157E308" />
+                                <Button mnemonicParsing="false" onAction="#handleDeleteStudent" prefHeight="35.0" styleClass="button-danger" text="حذف" />
+                            </children>
+                        </HBox>
+                    </children>
+                </VBox>
+                
+                <!-- Card 2: Payment Section (دفع قسط للرسوم الدراسية) -->
+                <VBox spacing="15.0" styleClass="card">
+                    <children>
+                        <Label text="تحصيل قسط دراسي" textFill="#2D3748">
+                            <font>
+                                <Font name="System Bold" size="16.0" />
+                            </font>
+                        </Label>
+                        
+                        <VBox spacing="8.0">
+                            <children>
+                                <HBox spacing="5.0">
+                                    <children>
+                                        <Label text="الطالب المختار:" textFill="#718096">
+                                            <font>
+                                                <Font name="System Bold" size="12.0" />
+                                            </font>
+                                        </Label>
+                                        <Label fx:id="selectedStudentLabel" text="الرجاء اختيار طالب من الجدول" textFill="#2D3748">
+                                            <font>
+                                                <Font name="System Bold" size="12.0" />
+                                            </font>
+                                        </Label>
+                                    </children>
+                                </HBox>
+                                <HBox spacing="5.0">
+                                    <children>
+                                        <Label text="المبلغ المتبقي للتحصيل:" textFill="#718096">
+                                            <font>
+                                                <Font name="System Bold" size="12.0" />
+                                            </font>
+                                        </Label>
+                                        <Label fx:id="remainingFeesLabel" text="0.00 ر.ل" textFill="#E53E3E">
+                                            <font>
+                                                <Font name="System Bold" size="12.0" />
+                                            </font>
+                                        </Label>
+                                    </children>
+                                </HBox>
+                            </children>
+                        </VBox>
+                        
+                        <VBox spacing="3.0">
+                            <children>
+                                <Label text="قيمة القسط المدفوع (ر.ل)" textFill="#4A5568">
+                                    <font>
+                                        <Font name="System Bold" size="12.0" />
+                                    </font>
+                                </Label>
+                                <TextField fx:id="paymentAmountField" promptText="أدخل المبلغ المراد دفعه" styleClass="text-field" />
+                            </children>
+                        </VBox>
+                        
+                        <Button mnemonicParsing="false" onAction="#handlePayInstallment" prefHeight="40.0" styleClass="button-primary" style="-fx-background-color: #38A169;" text="دفع قسط وطباعة الوصل" maxWidth="1.7976931348623157E308">
+                            <font>
+                                <Font name="System Bold" size="13.0" />
+                            </font>
+                        </Button>
+                    </children>
+                </VBox>
+                
+            </children>
+        </VBox>
+        
+    </children>
+</HBox>

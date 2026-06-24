@@ -10,6 +10,11 @@ public class Student extends Person {
 
     private int gradeId;
     private double paidAmount;
+    
+    // Transient fields for table display and calculation
+    private String gradeName;
+    private double totalFees;
+    private double remainingAmount;
 
     /**
      * Default constructor.
@@ -68,13 +73,70 @@ public class Student extends Person {
         this.paidAmount = paidAmount;
     }
 
+    /**
+     * Gets the name of the grade the student is enrolled in.
+     *
+     * @return The grade name
+     */
+    public String getGradeName() {
+        return gradeName;
+    }
+
+    /**
+     * Sets the name of the grade the student is enrolled in.
+     *
+     * @param gradeName The grade name to set
+     */
+    public void setGradeName(String gradeName) {
+        this.gradeName = gradeName;
+    }
+
+    /**
+     * Gets the total fees for the student's grade.
+     *
+     * @return The total fees
+     */
+    public double getTotalFees() {
+        return totalFees;
+    }
+
+    /**
+     * Sets the total fees for the student's grade.
+     *
+     * @param totalFees The total fees to set
+     */
+    public void setTotalFees(double totalFees) {
+        this.totalFees = totalFees;
+    }
+
+    /**
+     * Gets the remaining fees unpaid by the student.
+     *
+     * @return The remaining amount
+     */
+    public double getRemainingAmount() {
+        return remainingAmount;
+    }
+
+    /**
+     * Sets the remaining fees unpaid by the student.
+     *
+     * @param remainingAmount The remaining amount to set
+     */
+    public void setRemainingAmount(double remainingAmount) {
+        this.remainingAmount = remainingAmount;
+    }
+
     @Override
     public String toString() {
         return "Student{" +
                 "id=" + getId() +
                 ", name='" + getName() + '\'' +
                 ", gradeId=" + gradeId +
+                ", gradeName='" + gradeName + '\'' +
+                ", totalFees=" + totalFees +
                 ", paidAmount=" + paidAmount +
+                ", remainingAmount=" + remainingAmount +
                 '}';
     }
 }
