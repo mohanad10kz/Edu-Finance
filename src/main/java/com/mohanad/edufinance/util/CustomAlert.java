@@ -29,7 +29,22 @@ public class CustomAlert {
      * Enum specifying the visual styling and severity of the alert.
      */
     public enum AlertType {
-        INFO, ERROR, WARNING, CONFIRMATION
+        /**
+         * Informational alert style.
+         */
+        INFO, 
+        /**
+         * Error alert style.
+         */
+        ERROR, 
+        /**
+         * Warning alert style.
+         */
+        WARNING, 
+        /**
+         * Confirmation dialog style.
+         */
+        CONFIRMATION
     }
 
     private static boolean confirmedResult = false;
