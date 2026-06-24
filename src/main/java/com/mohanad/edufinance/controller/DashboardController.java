@@ -137,6 +137,7 @@ public class DashboardController {
                 
                 stage.setScene(scene);
                 stage.setTitle("EduFinance - تسجيل الدخول");
+                stage.setResizable(false); // Disallow resizing for Login Screen
                 stage.centerOnScreen();
                 stage.show();
             } catch (IOException e) {

@@ -141,6 +141,7 @@ public class LoginController {
             
             stage.setScene(scene);
             stage.setTitle("EduFinance - لوحة التحكم الرئيسية");
+            stage.setResizable(true); // Allow maximizing/resizing for Dashboard
             stage.centerOnScreen();
             stage.show();
         } catch (Exception e) {
