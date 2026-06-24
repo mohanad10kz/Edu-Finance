@@ -23,8 +23,8 @@
 .sidebar-button {
     -fx-background-color: transparent;
     -fx-text-fill: #4A5568;
-    -fx-alignment: CENTER_RIGHT;
-    -fx-padding: 10 15 10 15;
+    -fx-alignment: center-left;
+    -fx-padding: 10 20 10 10;
     -fx-background-radius: 5;
     -fx-cursor: hand;
 }

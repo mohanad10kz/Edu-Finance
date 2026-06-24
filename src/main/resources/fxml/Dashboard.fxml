@@ -12,7 +12,7 @@
 
 <BorderPane prefHeight="768.0" prefWidth="1024.0" style="-fx-background-color: #F4F6F8;" stylesheets="@../css/style.css" nodeOrientation="RIGHT_TO_LEFT" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mohanad.edufinance.controller.DashboardController">
     <!-- Sidebar on the Right (RTL Layout) -->
-    <right>
+    <left>
         <VBox prefWidth="240.0" spacing="10.0" styleClass="sidebar" BorderPane.alignment="CENTER">
             <padding>
                 <Insets bottom="20.0" left="15.0" right="15.0" top="20.0" />
@@ -113,7 +113,7 @@
                 </Button>
             </children>
         </VBox>
-    </right>
+    </left>
 
     <!-- Main Content Area in the Center -->
     <center>
