@@ -54,6 +54,9 @@
                 
                 <!-- Table View -->
                 <TableView fx:id="teachersTable" VBox.vgrow="ALWAYS">
+                    <columnResizePolicy>
+                        <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                    </columnResizePolicy>
                     <columns>
                         <TableColumn fx:id="teacherIdCol" prefWidth="50.0" text="المعرف" />
                         <TableColumn fx:id="teacherNameCol" prefWidth="160.0" text="اسم المعلم" />

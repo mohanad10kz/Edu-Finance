@@ -29,6 +29,9 @@
                 
                 <!-- Table View for Grades -->
                 <TableView fx:id="gradesTable" prefHeight="280.0" VBox.vgrow="ALWAYS">
+                    <columnResizePolicy>
+                        <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                    </columnResizePolicy>
                     <columns>
                         <TableColumn fx:id="gradeIdCol" prefWidth="60.0" text="المعرف" />
                         <TableColumn fx:id="gradeNameCol" prefWidth="150.0" text="اسم المرحلة" />
@@ -84,6 +87,9 @@
                 
                 <!-- Table View for Users -->
                 <TableView fx:id="usersTable" prefHeight="280.0" VBox.vgrow="ALWAYS">
+                    <columnResizePolicy>
+                        <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                    </columnResizePolicy>
                     <columns>
                         <TableColumn fx:id="userIdCol" prefWidth="60.0" text="المعرف" />
                         <TableColumn fx:id="userUsernameCol" prefWidth="150.0" text="اسم المستخدم" />

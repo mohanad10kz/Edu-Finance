@@ -4,7 +4,6 @@ import com.mohanad.edufinance.database.DatabaseConnection;
 import com.mohanad.edufinance.model.Student;
 import com.mohanad.edufinance.model.Grade;
 import com.mohanad.edufinance.util.CustomAlert;
-import com.mohanad.edufinance.util.PdfReceiptGenerator;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -18,7 +17,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.time.LocalDate;
 
 /**
  * Controller class for the Students view in the EduFinance application.

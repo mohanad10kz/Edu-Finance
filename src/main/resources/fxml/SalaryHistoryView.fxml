@@ -58,6 +58,9 @@
 
         <!-- Table View -->
         <TableView fx:id="historyTable" VBox.vgrow="ALWAYS">
+            <columnResizePolicy>
+                <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+            </columnResizePolicy>
             <columns>
                 <TableColumn fx:id="idCol" prefWidth="60.0" text="المعرف" />
                 <TableColumn fx:id="teacherNameCol" prefWidth="200.0" text="اسم المعلم" />

@@ -123,5 +123,8 @@
 
 .table-view .table-row-cell:selected {
     -fx-background-color: #EBF8FF;
-    -fx-text-fill: #2B6CB0;
+}
+
+.table-view .table-row-cell:selected .table-cell {
+    -fx-text-fill: #2D3748;
 }

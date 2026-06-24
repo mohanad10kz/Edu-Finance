@@ -26,6 +26,9 @@
                 </Label>
                 
                 <TableView fx:id="studentsTable" VBox.vgrow="ALWAYS">
+                    <columnResizePolicy>
+                        <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                    </columnResizePolicy>
                     <columns>
                         <TableColumn fx:id="studentIdCol" prefWidth="50.0" text="المعرف" />
                         <TableColumn fx:id="studentNameCol" prefWidth="150.0" text="اسم الطالب" />
