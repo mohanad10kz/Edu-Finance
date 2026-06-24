@@ -72,7 +72,13 @@
                     </font>
                 </ToggleButton>
                 
-                <ToggleButton fx:id="payrollBtn" alignment="BASELINE_LEFT" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#showPayrollView" prefHeight="45.0" styleClass="sidebar-button" text="مسيرات الرواتب" toggleGroup="$navGroup">
+                <ToggleButton fx:id="payrollBtn" alignment="BASELINE_LEFT" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#showPayrollView" prefHeight="45.0" styleClass="sidebar-button" text="مرتبات المعلمين" toggleGroup="$navGroup">
+                    <font>
+                        <Font size="13.0" />
+                    </font>
+                </ToggleButton>
+                
+                <ToggleButton fx:id="salaryHistoryBtn" alignment="BASELINE_LEFT" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#showSalaryHistoryView" prefHeight="45.0" styleClass="sidebar-button" text="سجل الرواتب المصروفة" toggleGroup="$navGroup">
                     <font>
                         <Font size="13.0" />
                     </font>

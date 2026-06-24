@@ -206,7 +206,8 @@ public class PayrollController {
         }
 
         double finalPayAmount = 0.0;
-        int sessions = 0;
+        Integer sessions = null;
+        String monthName = null;
 
         // Polymorphic payroll processing
         if ("HOURLY".equalsIgnoreCase(selectedTeacher.getPayType())) {
@@ -226,29 +227,40 @@ public class PayrollController {
             // Polymorphic call using the calculatePay method
             finalPayAmount = selectedTeacher.calculatePay(sessions);
         } else {
-            // Teacher is FIXED -> Confirm salary payout
-            boolean confirm = CustomAlert.showConfirmation(
+            // Teacher is FIXED -> Prompt for month selection
+            String monthResult = CustomAlert.showMonthSelectionDialog(
                     "تأكيد صرف الراتب",
-                    "هل أنت متأكد من صرف الراتب الثابت بقيمة " + String.format("%.2f", selectedTeacher.getPayValue()) + 
-                    " ر.ل للمعلم '" + selectedTeacher.getName() + "'؟"
+                    "اختر الشهر المراد صرف الراتب له للمعلم '" + selectedTeacher.getName() + "':"
             );
             
-            if (!confirm) {
+            if (monthResult == null) {
+                // Cancelled
                 return;
             }
             
+            monthName = monthResult;
             // Polymorphic call (sessions parameter is ignored for fixed salaries)
             finalPayAmount = selectedTeacher.calculatePay(0);
         }
 
         // Database transaction execution
-        String insertSQL = "INSERT INTO transactions (type, amount, date, person_id) VALUES ('TEACHER_PAYROLL', ?, ?, ?)";
+        String insertSQL = "INSERT INTO transactions (type, amount, date, person_id, sessions, month_name) VALUES ('TEACHER_PAYROLL', ?, ?, ?, ?, ?)";
         try {
             Connection conn = DatabaseConnection.getInstance().getConnection();
             try (PreparedStatement pstmt = conn.prepareStatement(insertSQL)) {
                 pstmt.setDouble(1, finalPayAmount);
                 pstmt.setString(2, LocalDate.now().toString());
                 pstmt.setInt(3, selectedTeacher.getId());
+                if (sessions != null) {
+                    pstmt.setInt(4, sessions);
+                } else {
+                    pstmt.setNull(4, java.sql.Types.INTEGER);
+                }
+                if (monthName != null) {
+                    pstmt.setString(5, monthName);
+                } else {
+                    pstmt.setNull(5, java.sql.Types.VARCHAR);
+                }
                 pstmt.executeUpdate();
             }
 
@@ -256,8 +268,8 @@ public class PayrollController {
                     String.format("تم صرف المستحقات المالية بقيمة (%.2f ر.ل) للمعلم بنجاح.", finalPayAmount), 
                     CustomAlert.AlertType.INFO);
 
-            // Generate receipt PDF
-            PdfReceiptGenerator.generateTeacherReceipt(selectedTeacher, finalPayAmount);
+            // Generate receipt PDF with detailed sessions/month information
+            PdfReceiptGenerator.generateTeacherReceipt(selectedTeacher, finalPayAmount, sessions, monthName);
 
             // Reset selection
             teachersTable.getSelectionModel().clearSelection();

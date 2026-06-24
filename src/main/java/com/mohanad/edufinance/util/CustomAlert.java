@@ -7,6 +7,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.control.ComboBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
@@ -15,6 +16,7 @@ import javafx.scene.text.FontWeight;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import javafx.collections.FXCollections;
 
 /**
  * Utility class to display custom-styled alert dialogs matching the application's
@@ -299,6 +301,100 @@ public class CustomAlert {
         window.showAndWait();
 
         return intInputResult;
+    }
+
+    private static String monthInputResult = null;
+
+    /**
+     * Displays a custom combobox dialog prompting for month selection.
+     *
+     * @param title  The title of the dialog window
+     * @param header The descriptive text for what to select
+     * @return The selected month string, or null if cancelled
+     */
+    public static String showMonthSelectionDialog(String title, String header) {
+        monthInputResult = null;
+
+        Stage window = new Stage();
+        window.initModality(Modality.APPLICATION_MODAL);
+        window.initStyle(StageStyle.UTILITY);
+        window.setTitle(title);
+        window.setMinWidth(350);
+        window.setMinHeight(220);
+
+        VBox layout = new VBox(15);
+        layout.setPadding(new Insets(20));
+        layout.setAlignment(Pos.CENTER);
+        layout.setNodeOrientation(NodeOrientation.RIGHT_TO_LEFT);
+        layout.setStyle("-fx-background-color: #FFFFFF;");
+
+        Label headerLabel = new Label(header);
+        headerLabel.setFont(Font.font("System", FontWeight.BOLD, 15));
+        headerLabel.setTextFill(Color.web("#3182CE"));
+
+        ComboBox<String> monthComboBox = new ComboBox<>();
+        monthComboBox.setItems(FXCollections.observableArrayList(
+                "يناير", "فبراير", "مارس", "أبريل", "مايو", "يونيو",
+                "يوليو", "أغسطس", "سبتمبر", "أكتوبر", "نوفمبر", "ديسمبر"
+        ));
+        monthComboBox.setPromptText("اختر الشهر المعني...");
+        monthComboBox.setMaxWidth(Double.MAX_VALUE);
+        monthComboBox.setStyle(
+            "-fx-background-color: #FFFFFF;" +
+            "-fx-border-color: #CBD5E0;" +
+            "-fx-border-width: 1;" +
+            "-fx-border-radius: 5;" +
+            "-fx-background-radius: 5;" +
+            "-fx-padding: 8;"
+        );
+
+        Label errorMsgLabel = new Label("الرجاء اختيار شهر!");
+        errorMsgLabel.setTextFill(Color.web("#E53E3E"));
+        errorMsgLabel.setVisible(false);
+
+        HBox buttonsBox = new HBox(15);
+        buttonsBox.setAlignment(Pos.CENTER);
+
+        Button confirmBtn = new Button("تأكيد وصرف");
+        confirmBtn.setStyle(
+            "-fx-background-color: #3182CE;" +
+            "-fx-text-fill: #FFFFFF;" +
+            "-fx-background-radius: 5;" +
+            "-fx-padding: 8 20 8 20;" +
+            "-fx-cursor: hand;"
+        );
+        confirmBtn.setOnAction(e -> {
+            String val = monthComboBox.getValue();
+            if (val == null) {
+                errorMsgLabel.setVisible(true);
+            } else {
+                monthInputResult = val;
+                window.close();
+            }
+        });
+
+        Button cancelBtn = new Button("إلغاء");
+        cancelBtn.setStyle(
+            "-fx-background-color: #E2E8F0;" +
+            "-fx-text-fill: #4A5568;" +
+            "-fx-background-radius: 5;" +
+            "-fx-padding: 8 20 8 20;" +
+            "-fx-cursor: hand;"
+        );
+        cancelBtn.setOnAction(e -> {
+            monthInputResult = null;
+            window.close();
+        });
+
+        buttonsBox.getChildren().addAll(confirmBtn, cancelBtn);
+        layout.getChildren().addAll(headerLabel, monthComboBox, errorMsgLabel, buttonsBox);
+
+        Scene scene = new Scene(layout);
+        scene.getStylesheets().add(CustomAlert.class.getResource("/css/style.css").toExternalForm());
+        window.setScene(scene);
+        window.showAndWait();
+
+        return monthInputResult;
     }
 
     /**

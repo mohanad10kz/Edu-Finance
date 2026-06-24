@@ -172,10 +172,12 @@ public class PdfReceiptGenerator {
      * Generates a PDF payroll advice for a teacher payout.
      * Saved as "مسير_راتب_[اسم_المعلم].pdf" in the project root directory.
      *
-     * @param teacher The teacher being paid
-     * @param amount  The total computed payment amount
+     * @param teacher   The teacher being paid
+     * @param amount    The total computed payment amount
+     * @param sessions  The number of sessions taught (for HOURLY, nullable)
+     * @param monthName The month name of the payroll (for FIXED, nullable)
      */
-    public static void generateTeacherReceipt(Teacher teacher, double amount) {
+    public static void generateTeacherReceipt(Teacher teacher, double amount, Integer sessions, String monthName) {
         String filename = "مسير_راتب_" + teacher.getName().replace(" ", "_") + ".pdf";
         Document document = new Document();
 
@@ -240,6 +242,14 @@ public class PdfReceiptGenerator {
             addDetailRow(detailsTable, valLabel, String.format("%.2f ر.ل", teacher.getPayValue()));
             
             addDetailRow(detailsTable, "الصف الدراسي المرتبط:", teacher.getGradeName());
+            
+            if (sessions != null) {
+                addDetailRow(detailsTable, "عدد الحصص المنجزة:", String.valueOf(sessions));
+            }
+            if (monthName != null) {
+                addDetailRow(detailsTable, "عن شهر:", monthName);
+            }
+            
             addDetailRow(detailsTable, "إجمالي المبلغ المنصرف:", String.format("%.2f ر.ل", amount));
 
             cellDetails.addElement(detailsTable);

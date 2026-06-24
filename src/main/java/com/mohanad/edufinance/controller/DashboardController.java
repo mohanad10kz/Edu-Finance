@@ -49,6 +49,9 @@ public class DashboardController {
     private ToggleButton settingsBtn;
 
     @FXML
+    private ToggleButton salaryHistoryBtn;
+
+    @FXML
     private StackPane contentArea;
 
     /**
@@ -98,6 +101,14 @@ public class DashboardController {
     @FXML
     void showPayrollView(ActionEvent event) {
         loadView("/fxml/PayrollView.fxml");
+    }
+
+    /**
+     * Shows the Salary History View in the central workspace.
+     */
+    @FXML
+    void showSalaryHistoryView(ActionEvent event) {
+        loadView("/fxml/SalaryHistoryView.fxml");
     }
 
     /**

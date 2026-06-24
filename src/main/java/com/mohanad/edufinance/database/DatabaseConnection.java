@@ -149,7 +149,9 @@ public class DatabaseConnection {
                 "  type TEXT NOT NULL CHECK(type IN ('STUDENT_PAYMENT', 'TEACHER_PAYROLL'))," +
                 "  amount REAL NOT NULL CHECK(amount > 0)," +
                 "  date TEXT NOT NULL," +
-                "  person_id INTEGER NOT NULL" +
+                "  person_id INTEGER NOT NULL," +
+                "  sessions INTEGER," +
+                "  month_name TEXT" +
                 ");"
             );
 

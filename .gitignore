@@ -42,3 +42,7 @@ build/
 *.db
 *.db-journal
 *.db-wal
+
+### Generated PDF Receipts ###
+وصل_دفع_*.pdf
+مسير_راتب_*.pdf

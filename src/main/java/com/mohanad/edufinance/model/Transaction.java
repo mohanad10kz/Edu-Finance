@@ -13,6 +13,12 @@ public class Transaction {
     private double amount;
     private String date; // LocalDate formatted as a string (YYYY-MM-DD)
     private int personId; // References Student ID or Teacher ID
+    private Integer sessions; // Number of sessions (only for HOURLY teacher payroll)
+    private String monthName; // Name of month (only for FIXED teacher payroll)
+
+    // Transient fields for table display
+    private String personName;
+    private String payType;
 
     /**
      * Default constructor.
@@ -127,6 +133,78 @@ public class Transaction {
         this.personId = personId;
     }
 
+    /**
+     * Gets the number of sessions for HOURLY teacher payroll.
+     *
+     * @return The number of sessions
+     */
+    public Integer getSessions() {
+        return sessions;
+    }
+
+    /**
+     * Sets the number of sessions for HOURLY teacher payroll.
+     *
+     * @param sessions The number of sessions to set
+     */
+    public void setSessions(Integer sessions) {
+        this.sessions = sessions;
+    }
+
+    /**
+     * Gets the month name for FIXED teacher payroll.
+     *
+     * @return The month name
+     */
+    public String getMonthName() {
+        return monthName;
+    }
+
+    /**
+     * Sets the month name for FIXED teacher payroll.
+     *
+     * @param monthName The month name to set
+     */
+    public void setMonthName(String monthName) {
+        this.monthName = monthName;
+    }
+
+    /**
+     * Gets the name of the teacher/student associated with the transaction.
+     *
+     * @return The person name
+     */
+    public String getPersonName() {
+        return personName;
+    }
+
+    /**
+     * Sets the name of the teacher/student associated with the transaction.
+     *
+     * @param personName The person name to set
+     */
+    public void setPersonName(String personName) {
+        this.personName = personName;
+    }
+
+    /**
+     * Gets the payment type display (transient field).
+     *
+     * @return The pay type
+     */
+    public String getPayType() {
+        return payType;
+    }
+
+    /**
+     * Sets the payment type display (transient field).
+     *
+     * @param payType The pay type to set
+     */
+    public void setPayType(String payType) {
+        this.payType = payType;
+    }
+
     @Override
     public String toString() {
         return "Transaction{" +
@@ -135,6 +213,10 @@ public class Transaction {
                 ", amount=" + amount +
                 ", date='" + date + '\'' +
                 ", personId=" + personId +
+                ", sessions=" + sessions +
+                ", monthName='" + monthName + '\'' +
+                ", personName='" + personName + '\'' +
+                ", payType='" + payType + '\'' +
                 '}';
     }
 }

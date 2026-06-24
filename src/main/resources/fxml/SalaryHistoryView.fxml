@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<VBox spacing="15.0" style="-fx-background-color: #F4F6F8; -fx-background-radius: 8;" stylesheets="@../css/style.css" nodeOrientation="RIGHT_TO_LEFT" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mohanad.edufinance.controller.SalaryHistoryController">
+    <padding>
+        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+    </padding>
+    <children>
+        <!-- Header -->
+        <HBox alignment="CENTER_LEFT" spacing="10.0">
+            <children>
+                <VBox spacing="5.0" HBox.hgrow="ALWAYS">
+                    <children>
+                        <Label text="سجل الرواتب المصروفة للمعلمين" textFill="#2D3748">
+                            <font>
+                                <Font name="System Bold" size="20.0" />
+                            </font>
+                        </Label>
+                        <Label text="عرض وطباعة كافة المرتبات والمستحقات التي تم صرفها مسبقاً" textFill="#718096">
+                            <font>
+                                <Font size="13.0" />
+                            </font>
+                        </Label>
+                    </children>
+                </VBox>
+                <Button mnemonicParsing="false" onAction="#handlePrintReceipt" prefHeight="40.0" styleClass="button-primary" style="-fx-background-color: #38A169;" text="إعادة طباعة الوصل المختار">
+                    <font>
+                        <Font name="System Bold" size="13.0" />
+                    </font>
+                </Button>
+            </children>
+        </HBox>
+
+        <!-- Table View -->
+        <TableView fx:id="historyTable" VBox.vgrow="ALWAYS">
+            <columns>
+                <TableColumn fx:id="idCol" prefWidth="60.0" text="المعرف" />
+                <TableColumn fx:id="teacherNameCol" prefWidth="200.0" text="اسم المعلم" />
+                <TableColumn fx:id="payTypeCol" prefWidth="120.0" text="نوع التعاقد" />
+                <TableColumn fx:id="amountCol" prefWidth="130.0" text="القيمة المصروفة" />
+                <TableColumn fx:id="detailsCol" prefWidth="180.0" text="تفاصيل الصرف" />
+                <TableColumn fx:id="dateCol" prefWidth="130.0" text="تاريخ العمليّة" />
+            </columns>
+        </TableView>
+    </children>
+</VBox>
