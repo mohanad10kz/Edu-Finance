@@ -1,67 +1,82 @@
 package com.mohanad.edufinance;
 
 import com.mohanad.edufinance.database.DatabaseConnection;
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.Statement;
+import com.mohanad.edufinance.model.User;
+
+import javafx.application.Application;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.geometry.NodeOrientation;
+import javafx.stage.Stage;
 
 /**
- * Main application class. In Phase 1, it serves as a runner to verify the database
- * setup, schemas, and default seeds. In Phase 3, this will launch the JavaFX UI.
+ * The main bootstrap and JavaFX Application class for the EduFinance system.
+ * Initializes the database connection and loads the initial Login screen.
  *
  * @author MOHANAD
  */
-public class Main {
+public class Main extends Application {
 
     /**
-     * Entry point of the application.
+     * Stores the current logged-in user session polymorphically.
+     */
+    public static User currentUser;
+
+    /**
+     * Initializes the database connection before the GUI starts.
+     * This is invoked automatically by the JavaFX runtime.
+     */
+    @Override
+    public void init() {
+        System.out.println("إعداد النظام: جاري الاتصال بقاعدة البيانات...");
+        // Triggers singleton initialization and seeding
+        DatabaseConnection.getInstance();
+    }
+
+    /**
+     * Sets up and displays the primary stage with the Login screen.
+     *
+     * @param primaryStage The primary Stage container of the application
+     * @throws Exception if FXML loading fails
+     */
+    @Override
+    public void start(Stage primaryStage) throws Exception {
+        System.out.println("بدء تشغيل واجهة المستخدم...");
+
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/Login.fxml"));
+        Parent root = loader.load();
+
+        // Apply RTL layout orientation globally to the login screen
+        root.setNodeOrientation(NodeOrientation.RIGHT_TO_LEFT);
+
+        Scene scene = new Scene(root, 600, 500);
+        
+        // Load custom style sheet
+        scene.getStylesheets().add(getClass().getResource("/css/style.css").toExternalForm());
+
+        primaryStage.setScene(scene);
+        primaryStage.setTitle("EduFinance - تسجيل الدخول");
+        primaryStage.setResizable(false);
+        primaryStage.centerOnScreen();
+        primaryStage.show();
+    }
+
+    /**
+     * Closes resources on application stop.
+     */
+    @Override
+    public void stop() {
+        System.out.println("إغلاق النظام: جاري إغلاق الاتصال بقاعدة البيانات...");
+        DatabaseConnection.getInstance().closeConnection();
+    }
+
+    /**
+     * Main entry point.
      *
      * @param args Command line arguments
      */
     public static void main(String[] args) {
-        System.out.println("=== EduFinance: بدء تشغيل النظام والتحقق من قاعدة البيانات ===");
-        
-        try {
-            // Get database connection instance (triggers initialization and seeding)
-            DatabaseConnection dbConnection = DatabaseConnection.getInstance();
-            Connection conn = dbConnection.getConnection();
-            
-            if (conn != null && !conn.isClosed()) {
-                System.out.println("نجاح: تم الاتصال بقاعدة البيانات بنجاح.");
-                
-                // Print all users in DB
-                System.out.println("\n--- قائمة المستخدمين في قاعدة البيانات ---");
-                try (Statement stmt = conn.createStatement();
-                     ResultSet rs = stmt.executeQuery("SELECT id, username, role FROM users")) {
-                    while (rs.next()) {
-                        System.out.printf("المعرف: %d | اسم المستخدم: %s | الصلاحية: %s%n",
-                                rs.getInt("id"),
-                                rs.getString("username"),
-                                rs.getString("role"));
-                    }
-                }
-                
-                // Print all grades in DB
-                System.out.println("\n--- قائمة الصفوف والرسوم الدراسية ---");
-                try (Statement stmt = conn.createStatement();
-                     ResultSet rs = stmt.executeQuery("SELECT id, name, total_fees FROM grades")) {
-                    while (rs.next()) {
-                        System.out.printf("المعرف: %d | اسم الصف: %s | الرسوم الإجمالية: %.2f%n",
-                                rs.getInt("id"),
-                                rs.getString("name"),
-                                rs.getDouble("total_fees"));
-                    }
-                }
-                
-                System.out.println("\n=======================================================");
-                System.out.println("المرحلة الأولى تمت بنجاح! قاعدة البيانات جاهزة ومغذية.");
-            } else {
-                System.err.println("فشل: اتصال قاعدة البيانات فارغ أو مغلق.");
-            }
-            
-        } catch (Exception e) {
-            System.err.println("حدث خطأ أثناء تشغيل النظام والتحقق من قاعدة البيانات.");
-            e.printStackTrace();
-        }
+        launch(args);
     }
 }

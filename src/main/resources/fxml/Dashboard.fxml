@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ToggleButton?>
+<?import javafx.scene.control.ToggleGroup?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane prefHeight="768.0" prefWidth="1024.0" style="-fx-background-color: #F4F6F8;" stylesheets="@../css/style.css" nodeOrientation="RIGHT_TO_LEFT" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mohanad.edufinance.controller.DashboardController">
+    <!-- Sidebar on the Right (RTL Layout) -->
+    <right>
+        <VBox prefWidth="240.0" spacing="10.0" styleClass="sidebar" BorderPane.alignment="CENTER">
+            <padding>
+                <Insets bottom="20.0" left="15.0" right="15.0" top="20.0" />
+            </padding>
+            <children>
+                <!-- App Logo -->
+                <VBox alignment="CENTER" spacing="5.0">
+                    <children>
+                        <Label text="EduFinance" textFill="#3182CE">
+                            <font>
+                                <Font name="System Bold" size="24.0" />
+                            </font>
+                        </Label>
+                        <Label text="نظام الشؤون المالية" textFill="#A0AEC0">
+                            <font>
+                                <Font size="12.0" />
+                            </font>
+                        </Label>
+                    </children>
+                    <VBox.margin>
+                        <Insets bottom="20.0" />
+                    </VBox.margin>
+                </VBox>
+
+                <!-- User Session Profile -->
+                <VBox spacing="5.0" style="-fx-background-color: #F7FAFC; -fx-background-radius: 8; -fx-padding: 12;">
+                    <children>
+                        <Label fx:id="userNameLabel" text="أهلاً بك، محمد" textFill="#2D3748" wrapText="true">
+                            <font>
+                                <Font name="System Bold" size="13.0" />
+                            </font>
+                        </Label>
+                        <Label fx:id="userRoleLabel" text="صلاحية: مدير النظام" textFill="#718096">
+                            <font>
+                                <Font size="11.0" />
+                            </font>
+                        </Label>
+                    </children>
+                    <VBox.margin>
+                        <Insets bottom="20.0" />
+                    </VBox.margin>
+                </VBox>
+
+                <!-- Navigation Tabs -->
+                <ToggleButton fx:id="studentsBtn" alignment="BASELINE_LEFT" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#showStudentsView" prefHeight="45.0" styleClass="sidebar-button" text="الطلاب والمدفوعات">
+                    <toggleGroup>
+                        <ToggleGroup fx:id="navGroup" />
+                    </toggleGroup>
+                    <font>
+                        <Font size="13.0" />
+                    </font>
+                </ToggleButton>
+                
+                <ToggleButton fx:id="teachersBtn" alignment="BASELINE_LEFT" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#showTeachersView" prefHeight="45.0" styleClass="sidebar-button" text="إدارة المعلمين" toggleGroup="$navGroup">
+                    <font>
+                        <Font size="13.0" />
+                    </font>
+                </ToggleButton>
+                
+                <ToggleButton fx:id="payrollBtn" alignment="BASELINE_LEFT" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#showPayrollView" prefHeight="45.0" styleClass="sidebar-button" text="مسيرات الرواتب" toggleGroup="$navGroup">
+                    <font>
+                        <Font size="13.0" />
+                    </font>
+                </ToggleButton>
+                
+                <ToggleButton fx:id="settingsBtn" alignment="BASELINE_LEFT" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#showSettingsView" prefHeight="45.0" styleClass="sidebar-button" text="الإعدادات العامة" toggleGroup="$navGroup">
+                    <font>
+                        <Font size="13.0" />
+                    </font>
+                </ToggleButton>
+
+                <!-- Spacer to push Logout down -->
+                <VBox VBox.vgrow="ALWAYS" />
+
+                <!-- Logout Button -->
+                <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#handleLogout" prefHeight="40.0" styleClass="button-danger" text="تسجيل الخروج">
+                    <font>
+                        <Font name="System Bold" size="12.0" />
+                    </font>
+                </Button>
+            </children>
+        </VBox>
+    </right>
+
+    <!-- Main Content Area in the Center -->
+    <center>
+        <StackPane fx:id="contentArea" style="-fx-background-color: #F4F6F8;" BorderPane.alignment="CENTER">
+            <padding>
+                <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+            </padding>
+        </StackPane>
+    </center>
+</BorderPane>
