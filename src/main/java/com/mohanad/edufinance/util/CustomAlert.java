@@ -6,6 +6,7 @@ import javafx.geometry.NodeOrientation;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
 import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
@@ -190,6 +191,99 @@ public class CustomAlert {
         window.showAndWait();
 
         return confirmedResult;
+    }
+
+    private static Integer intInputResult = null;
+
+    /**
+     * Displays a custom input stage prompting for a numeric integer input.
+     *
+     * @param title  The title of the dialog window
+     * @param header The descriptive text for what to input
+     * @param prompt Placeholder text inside the input field
+     * @return The entered integer value, or null if cancelled
+     */
+    public static Integer showNumberInputDialog(String title, String header, String prompt) {
+        intInputResult = null;
+
+        Stage window = new Stage();
+        window.initModality(Modality.APPLICATION_MODAL);
+        window.initStyle(StageStyle.UTILITY);
+        window.setTitle(title);
+        window.setMinWidth(350);
+        window.setMinHeight(200);
+
+        VBox layout = new VBox(15);
+        layout.setPadding(new Insets(20));
+        layout.setAlignment(Pos.CENTER);
+        layout.setNodeOrientation(NodeOrientation.RIGHT_TO_LEFT);
+        layout.setStyle("-fx-background-color: #FFFFFF;");
+
+        Label headerLabel = new Label(header);
+        headerLabel.setFont(Font.font("System", FontWeight.BOLD, 15));
+        headerLabel.setTextFill(Color.web("#3182CE"));
+
+        TextField inputField = new TextField();
+        inputField.setPromptText(prompt);
+        inputField.setStyle(
+            "-fx-background-color: #FFFFFF;" +
+            "-fx-border-color: #CBD5E0;" +
+            "-fx-border-width: 1;" +
+            "-fx-border-radius: 5;" +
+            "-fx-background-radius: 5;" +
+            "-fx-padding: 8;"
+        );
+
+        Label errorMsgLabel = new Label("الرجاء إدخال رقم صحيح موجب!");
+        errorMsgLabel.setTextFill(Color.web("#E53E3E"));
+        errorMsgLabel.setVisible(false);
+
+        HBox buttonsBox = new HBox(15);
+        buttonsBox.setAlignment(Pos.CENTER);
+
+        Button confirmBtn = new Button("تأكيد وصرف");
+        confirmBtn.setStyle(
+            "-fx-background-color: #3182CE;" +
+            "-fx-text-fill: #FFFFFF;" +
+            "-fx-background-radius: 5;" +
+            "-fx-padding: 8 20 8 20;" +
+            "-fx-cursor: hand;"
+        );
+        confirmBtn.setOnAction(e -> {
+            try {
+                int val = Integer.parseInt(inputField.getText().trim());
+                if (val <= 0) {
+                    throw new NumberFormatException();
+                }
+                intInputResult = val;
+                window.close();
+            } catch (NumberFormatException ex) {
+                errorMsgLabel.setVisible(true);
+            }
+        });
+
+        Button cancelBtn = new Button("إلغاء");
+        cancelBtn.setStyle(
+            "-fx-background-color: #E2E8F0;" +
+            "-fx-text-fill: #4A5568;" +
+            "-fx-background-radius: 5;" +
+            "-fx-padding: 8 20 8 20;" +
+            "-fx-cursor: hand;"
+        );
+        cancelBtn.setOnAction(e -> {
+            intInputResult = null;
+            window.close();
+        });
+
+        buttonsBox.getChildren().addAll(confirmBtn, cancelBtn);
+        layout.getChildren().addAll(headerLabel, inputField, errorMsgLabel, buttonsBox);
+
+        Scene scene = new Scene(layout);
+        scene.getStylesheets().add(CustomAlert.class.getResource("/css/style.css").toExternalForm());
+        window.setScene(scene);
+        window.showAndWait();
+
+        return intInputResult;
     }
 
     /**

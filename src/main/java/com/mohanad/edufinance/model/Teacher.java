@@ -12,6 +12,9 @@ public class Teacher extends Person implements Payable {
     private String payType; // 'FIXED' or 'HOURLY'
     private double payValue; // fixed monthly salary OR hourly session rate
     private Integer gradeId; // Optional: Grade/Class associated with the teacher
+    
+    // Transient field for table display
+    private String gradeName;
 
     /**
      * Default constructor.
@@ -108,6 +111,24 @@ public class Teacher extends Person implements Payable {
         }
     }
 
+    /**
+     * Gets the name of the grade taught by the teacher.
+     *
+     * @return The grade name
+     */
+    public String getGradeName() {
+        return gradeName;
+    }
+
+    /**
+     * Sets the name of the grade taught by the teacher.
+     *
+     * @param gradeName The grade name to set
+     */
+    public void setGradeName(String gradeName) {
+        this.gradeName = gradeName;
+    }
+
     @Override
     public String toString() {
         return "Teacher{" +
@@ -116,6 +137,7 @@ public class Teacher extends Person implements Payable {
                 ", payType='" + payType + '\'' +
                 ", payValue=" + payValue +
                 ", gradeId=" + gradeId +
+                ", gradeName='" + gradeName + '\'' +
                 '}';
     }
 }
