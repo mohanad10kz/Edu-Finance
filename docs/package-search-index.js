@@ -1,0 +1,1 @@
+packageSearchIndex = [{"l":"All Packages","u":"allpackages-index.html"},{"l":"com.mohanad.edufinance"},{"l":"com.mohanad.edufinance.controller"},{"l":"com.mohanad.edufinance.database"},{"l":"com.mohanad.edufinance.model"},{"l":"com.mohanad.edufinance.util"}];updateSearchResults();
