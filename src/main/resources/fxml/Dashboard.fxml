@@ -57,10 +57,16 @@
                 </VBox>
 
                 <!-- Navigation Tabs -->
-                <ToggleButton fx:id="studentsBtn" alignment="BASELINE_LEFT" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#showStudentsView" prefHeight="45.0" styleClass="sidebar-button" text="الطلاب والمدفوعات">
+                <ToggleButton fx:id="studentsBtn" alignment="BASELINE_LEFT" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#showStudentsView" prefHeight="45.0" styleClass="sidebar-button" text="إدارة الطلاب">
                     <toggleGroup>
                         <ToggleGroup fx:id="navGroup" />
                     </toggleGroup>
+                    <font>
+                        <Font size="13.0" />
+                    </font>
+                </ToggleButton>
+                
+                <ToggleButton fx:id="studentPaymentsBtn" alignment="BASELINE_LEFT" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#showStudentPaymentsView" prefHeight="45.0" styleClass="sidebar-button" text="أقساط الطلبة" toggleGroup="$navGroup">
                     <font>
                         <Font size="13.0" />
                     </font>

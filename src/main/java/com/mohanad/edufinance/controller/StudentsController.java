@@ -51,14 +51,6 @@ public class StudentsController {
     @FXML
     private ComboBox<Grade> studentGradeComboBox;
 
-    // --- Payment controls ---
-    @FXML
-    private Label selectedStudentLabel;
-    @FXML
-    private Label remainingFeesLabel;
-    @FXML
-    private TextField paymentAmountField;
-
     private ObservableList<Student> studentList = FXCollections.observableArrayList();
     private ObservableList<Grade> gradeList = FXCollections.observableArrayList();
     private Student selectedStudent;
@@ -95,10 +87,6 @@ public class StudentsController {
                         break;
                     }
                 }
-
-                // Update payment section info
-                selectedStudentLabel.setText(selectedStudent.getName());
-                remainingFeesLabel.setText(String.format("%.2f ر.ل", selectedStudent.getRemainingAmount()));
             }
         });
     }
@@ -262,95 +250,6 @@ public class StudentsController {
     }
 
     /**
-     * Process an installment payment for the selected student.
-     * Integrates database updates, logs a transaction, and prints a receipt.
-     */
-    @FXML
-    void handlePayInstallment(ActionEvent event) {
-        if (selectedStudent == null) {
-            CustomAlert.show("تحديد مطلوب", "الرجاء اختيار طالب من الجدول لتنفيذ الدفع له.", CustomAlert.AlertType.WARNING);
-            return;
-        }
-
-        String amountStr = paymentAmountField.getText().trim();
-        if (amountStr.isEmpty()) {
-            CustomAlert.show("مبلغ فارغ", "الرجاء إدخال قيمة القسط المراد دفعه.", CustomAlert.AlertType.WARNING);
-            return;
-        }
-
-        double amount;
-        try {
-            amount = Double.parseDouble(amountStr);
-            if (amount <= 0) {
-                throw new NumberFormatException();
-            }
-        } catch (NumberFormatException e) {
-            CustomAlert.show("خطأ في القيمة", "الرجاء إدخال مبلغ صحيح (رقم موجب أكبر من الصفر).", CustomAlert.AlertType.ERROR);
-            return;
-        }
-
-        // Check if amount exceeds remaining balance
-        double remaining = selectedStudent.getRemainingAmount();
-        if (amount > remaining) {
-            CustomAlert.show("تجاوز المبلغ", 
-                    String.format("المبلغ المدخل (%.2f) يتجاوز الرسوم المتبقية على الطالب (%.2f).", amount, remaining), 
-                    CustomAlert.AlertType.WARNING);
-            return;
-        }
-
-        Connection conn = DatabaseConnection.getInstance().getConnection();
-        try {
-            // Disable auto commit to support transactions
-            conn.setAutoCommit(false);
-
-            // 1. Update Student paid_amount
-            String updateStudentSQL = "UPDATE students SET paid_amount = paid_amount + ? WHERE id = ?";
-            try (PreparedStatement pstmt = conn.prepareStatement(updateStudentSQL)) {
-                pstmt.setDouble(1, amount);
-                pstmt.setInt(2, selectedStudent.getId());
-                pstmt.executeUpdate();
-            }
-
-            // 2. Insert Transaction Record
-            String insertTransactionSQL = "INSERT INTO transactions (type, amount, date, person_id) VALUES (?, ?, ?, ?)";
-            try (PreparedStatement pstmt = conn.prepareStatement(insertTransactionSQL)) {
-                pstmt.setString(1, "STUDENT_PAYMENT");
-                pstmt.setDouble(2, amount);
-                pstmt.setString(3, LocalDate.now().toString()); // Format YYYY-MM-DD
-                pstmt.setInt(4, selectedStudent.getId());
-                pstmt.executeUpdate();
-            }
-
-            // Commit database transaction
-            conn.commit();
-            conn.setAutoCommit(true);
-
-            // Refresh student model copy locally for receipt display
-            selectedStudent.setPaidAmount(selectedStudent.getPaidAmount() + amount);
-            selectedStudent.setRemainingAmount(selectedStudent.getRemainingAmount() - amount);
-
-            CustomAlert.show("تم الدفع", "تم سداد القسط بنجاح وتسجيل المعاملة.", CustomAlert.AlertType.INFO);
-            
-            // 3. Generate Receipt PDF
-            PdfReceiptGenerator.generateStudentReceipt(selectedStudent, amount);
-
-            // Reset UI
-            clearFields();
-            loadStudentsData();
-
-        } catch (SQLException e) {
-            try {
-                conn.rollback();
-                conn.setAutoCommit(true);
-            } catch (SQLException ex) {
-                ex.printStackTrace();
-            }
-            e.printStackTrace();
-            CustomAlert.show("خطأ مالي", "فشل إجراء المعاملة المالية وقيدها في قاعدة البيانات. تم إلغاء العملية.", CustomAlert.AlertType.ERROR);
-        }
-    }
-
-    /**
      * Clears all fields in the forms.
      */
     private void clearFields() {
@@ -358,8 +257,5 @@ public class StudentsController {
         studentsTable.getSelectionModel().clearSelection();
         studentNameField.clear();
         studentGradeComboBox.setValue(null);
-        selectedStudentLabel.setText("الرجاء اختيار طالب من الجدول");
-        remainingFeesLabel.setText("0.00 ر.ل");
-        paymentAmountField.clear();
     }
 }

@@ -37,6 +37,9 @@ public class DashboardController {
     private ToggleButton studentsBtn;
 
     @FXML
+    private ToggleButton studentPaymentsBtn;
+
+    @FXML
     private ToggleGroup navGroup;
 
     @FXML
@@ -56,27 +59,38 @@ public class DashboardController {
 
     /**
      * Initializes the dashboard. Displays user info and applies role restrictions.
-     * Selects and displays the Students View by default on startup.
+     * Selects and displays the appropriate View by default on startup based on user role.
      */
     @FXML
     public void initialize() {
+        boolean isAdmin = false;
         if (Main.currentUser != null) {
             userNameLabel.setText("أهلاً بك، " + Main.currentUser.getUsername());
             
-            String roleText = "ADMIN".equalsIgnoreCase(Main.currentUser.getRole()) ? "مدير النظام" : "مستخدم عادي";
+            isAdmin = "ADMIN".equalsIgnoreCase(Main.currentUser.getRole());
+            String roleText = isAdmin ? "مدير النظام" : "مستخدم عادي";
             userRoleLabel.setText("الصلاحية: " + roleText);
 
             // Role-Based Access Control (RBAC)
-            if (!"ADMIN".equalsIgnoreCase(Main.currentUser.getRole())) {
-                // For Regular User, hide or disable Settings View
+            if (!isAdmin) {
+                // For Regular User, hide or disable Admin Views
                 settingsBtn.setVisible(false);
                 settingsBtn.setManaged(false);
+                studentsBtn.setVisible(false);
+                studentsBtn.setManaged(false);
+                teachersBtn.setVisible(false);
+                teachersBtn.setManaged(false);
             }
         }
 
-        // Set default view on load
-        studentsBtn.setSelected(true);
-        loadView("/fxml/StudentsView.fxml");
+        // Set default view on load depending on role
+        if (isAdmin) {
+            studentsBtn.setSelected(true);
+            loadView("/fxml/StudentsView.fxml");
+        } else {
+            studentPaymentsBtn.setSelected(true);
+            loadView("/fxml/StudentPaymentsView.fxml");
+        }
     }
 
     /**
@@ -85,6 +99,14 @@ public class DashboardController {
     @FXML
     void showStudentsView(ActionEvent event) {
         loadView("/fxml/StudentsView.fxml");
+    }
+
+    /**
+     * Shows the Student Payments View in the central workspace.
+     */
+    @FXML
+    void showStudentPaymentsView(ActionEvent event) {
+        loadView("/fxml/StudentPaymentsView.fxml");
     }
 
     /**
